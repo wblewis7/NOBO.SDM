@@ -8,7 +8,10 @@ Manuscript Title: Integrating multiple data sources with species distribution mo
 ---
 
 # Metadata
+
 <br />
+<br />
+
 # Code_NOBO_SDM_BBS_eBird.R
 
 Code for running the integrated SDM in R and NIMBLE is contained in the 'Code_NOBO_SDM_BBS_eBird' R file. Bobwhite abundance is jointly estimated from BBS and eBird data in each of 25066 5x5km grid cell across the eastern United States in each of three years (2018, 2019, 2021). Abundance is modeled as a function of year effects and 16 environmental covariates (10 of which are also included as quadratic effects). To aid in prediction, grid-level abundance is constrained to be less than or equal to 8250 (corresponding to a maximum density of 6.6 birds/ha). Intercept, covariate, and year effects are allowed to vary by USDA Land Resource Region (LRR), with LRR-level effects arising from Normal distributions around global means. Intercepts are further allowed to vary based on USDA Major Land Resource Areas (MLRA) to account finer-scale variation in abundance. MLRAs are nested within LRRs, so MLRA-specific intercepts are modeled as arising from Normal distributions around LRR-specific intercepts.
