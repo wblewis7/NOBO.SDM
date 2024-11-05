@@ -25,5 +25,9 @@ Roughly 10% of grids with surveys from each dataset (BBS and eBird) were randoml
 The data for running the northern bobwhite SDM are stored in 'NOBO.SDM.BBS.eBird.Data' gzip file. NOBO.SDM.BBS.eBird.Data contains two objects which correspond to the data (mod.data) and constants (mod.const) used in the NIMBLE model.
 ## mod.data
 ### y_bbs
-A three-dimensional array giving the number of bobwhites detected on BBS surveys. The x-dimension corresponds to 5-km grid cells within 
+A three-dimensional array giving the number of bobwhites detected on BBS surveys. The x-dimension corresponds to grid cells with BBS surveys (3178), the y-dimension corresponds to BBS surveys within each grid and year (up to 18), and the z-dimension corresponds to year (1=2018, 2=2019, 3=2021). Less than 18 BBS surveys were performed in some grids/years (denoted with NA).
+### y_ebd
+A three-dimensional array giving the number of bobwhites detected on eBird checklists. The x-dimension corresponds to grid cells with eBird checklists (22,885), the y-dimension corresponds to eBird checklists within each grid and year (up to 50), and the z-dimension corresponds to year (1=2018, 2=2019, 3=2021). Less than 50 eBird checklists were recorded in some grids/years (denoted with NA).
+
+
 
