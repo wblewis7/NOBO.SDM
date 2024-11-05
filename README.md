@@ -35,4 +35,23 @@ A three-dimensional array giving the number of bobwhites detected on eBird check
 <br />
 
 ## mod.const
-
+### nCovs
+Number of environmental covariates for estimating grid-level abundance.
+### n_lrr
+Number of LRRs across the eastern US in which bobwhite abundance is estimated.
+### n_mlra
+Number of MLRAs across the eastern US in which bobwhite abundance is estimated. MLRAs are nested within LRR.
+### lrr
+Vector giving the LRR for each MLRA used in analysis. 1 = D (Western Range and Irrigated Region), 2 = E (Rocky Mountain Range and Forest Region), 3 = F (Northern Great Plains Spring Wheat Region), 4 = G (Western Great Plains Range and Irrigated Region), 5 = H (Central Great Plains Winter Wheat and Range Region), 6 = I (Southwest Plateaus and Plains Range and Cotton Region), 7 = J (Southwestern Prairies Cotton and Forage Region), 8 = K (Northern Lake States Forest and Forage Region), 9 = L (Lake States Fruit, Truck Crop, and Dairy Region), 10 = M (Central Feed Grains and Livestock Region), 11 = N (East and Central Farming and Forest Region), 12 = O (Mississippi Delta Cotton and Feed Grains Region), 13 = P (South Atlantic and Gulf Slope Cash Crops, Forest, and Livestock Region), 14 = R (Northeastern Forage and Forest Region), 15 = S (Northern Atlantic Slope Diversified Farming Region), 16 = T (Atlantic and Gulf Coast Lowland Forest and Crop Region), and 17 = U (Florida Subtropical Fruit, Truck Crop, and Range Region).
+### nYear
+Number of years of study (2018, 2019, 2021).
+### nTot
+Total number of grid cells in the eastern US with BBS and/or eBird surveys at which to estimate bobwhite abundance.
+### mlra
+Vector giving the MLRA for each grid cell in the eastern US.
+### shrub
+Vector giving the standardized values of proportional cover of shrubs in each grid cell. Values generated from the Rangeland Analysis Platform land cover datasets.
+### bgr
+Vector giving the standardized values of proportional cover of bare ground in each grid cell. Values generated from the Rangeland Analysis Platform land cover datasets.
+### rowcrop
+Vector giving the standardized values of percentage cover of row crops in each grid cell. Values generated from the National Land Cover Dataset.
