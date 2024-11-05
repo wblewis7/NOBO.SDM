@@ -55,3 +55,27 @@ Vector giving the standardized values of proportional cover of shrubs in each gr
 Vector giving the standardized values of proportional cover of bare ground in each grid cell. Values generated from the Rangeland Analysis Platform land cover datasets.
 ### rowcrop
 Vector giving the standardized values of percentage cover of row crops in each grid cell. Values generated from the National Land Cover Dataset.
+### energy
+Vector giving the standardized values of energy development intensity in each grid cell. Values generated from data in Suraci et al. 2023.
+### transport
+Vector giving the standardized values of transportation intensity in each grid cell. Values generated from data in Suraci et al. 2023.
+### urban
+Vector giving the standardized values of urbanization intensity in each grid cell. Values generated from data in Suraci et al. 2023.
+### tmax
+Vector giving the standardized values of mean daily maximum temperature in each grid cell. Values generated from NASA's Daymet v4 dataset.
+### prcp
+Vector giving the standardized values of mean daily precipitation in each grid cell. Values generated from NASA's Daymet v4 dataset.
+### snowdays
+Vector giving the standardized values of mean number of days with snow depth greater than 2.5cm in each grid cell. Values generated from NASA's Daymet v4 dataset.
+### pasture
+Vector giving the standardized values of percentage cover of pasture in each grid cell. Values generated from the National Land Cover Dataset.
+### evergreen
+Vector giving the standardized values of percentage cover of evergreen forest in each grid cell. Values generated from the National Land Cover Dataset.
+### deciduous
+Vector giving the standardized values of percentage cover of deciduous forest in each grid cell. Values generated from the National Land Cover Dataset.
+### mixed
+Vector giving the standardized values of percentage cover of mixed forest in each grid cell. Values generated from the National Land Cover Dataset.
+### water
+Vector giving the standardized values of percentage cover of water/wetland in each grid cell. Values generated from the National Land Cover Dataset.
+### grass
+Vector giving the standardized values of percentage cover of grassland in each grid cell. Values generated from the National Land Cover Dataset.
