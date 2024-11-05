@@ -10,7 +10,6 @@ Manuscript Title: Integrating multiple data sources with species distribution mo
 # Metadata
 
 <br />
-<br />
 
 # Code_NOBO_SDM_BBS_eBird.R
 
