@@ -13,7 +13,7 @@ Manuscript Title: Integrating multiple data sources with species distribution mo
 
 # Code_NOBO_SDM_BBS_eBird.R
 
-Code for running the integrated SDM in R and NIMBLE is contained in the 'Code_NOBO_SDM_BBS_eBird' R file. Bobwhite abundance is jointly estimated from BBS and eBird data in each of 25066 5x5km grid cell across the eastern United States in each of three years (2018, 2019, 2021). Abundance is modeled as a function of year effects and 16 environmental covariates (10 of which are also included as quadratic effects). To aid in prediction, grid-level abundance is constrained to be less than or equal to 8250 (corresponding to a maximum density of 6.6 birds/ha). Intercept, covariate, and year effects are allowed to vary by USDA Land Resource Region (LRR), with LRR-level effects arising from Normal distributions around global means. Intercepts are further allowed to vary based on USDA Major Land Resource Areas (MLRA) to account finer-scale variation in abundance. MLRAs are nested within LRRs, so MLRA-specific intercepts are modeled as arising from Normal distributions around LRR-specific intercepts.
+Code for running the integrated SDM in R and NIMBLE is contained in the 'Code_NOBO_SDM_BBS_eBird' R file. Bobwhite abundance is jointly estimated from BBS and eBird data in each of 25,066 5x5km grid cell across the eastern United States in each of three years (2018, 2019, 2021). Abundance is modeled as a function of year effects and 16 environmental covariates (10 of which are also included as quadratic effects). To aid in prediction, grid-level abundance is constrained to be less than or equal to 8250 (corresponding to a maximum density of 6.6 birds/ha). Intercept, covariate, and year effects are allowed to vary by USDA Land Resource Region (LRR), with LRR-level effects arising from Normal distributions around global means. Intercepts are further allowed to vary based on USDA Major Land Resource Areas (MLRA) to account for finer-scale variation in abundance. MLRAs are nested within LRRs, so MLRA-specific intercepts are modeled as arising from Normal distributions around LRR-specific intercepts.
 BBS surveys were completed in 3178 grid cells, with up to 18 surveys from each grid cell and year incorporated into analysis. The detection radius for BBS surveys is 400m, meaning that expected abundance on BBS surveys is 2% of the abundance within the 5x5km grid cell. Detections on BBS surveys are modeled based on this survey-level abundance and BBS detection probability, which is modeled based on background noise and the number of passing cars.
 eBird surveys were completed in 22,885 grid cells, with up to 50 checklists from each grid cell and year incorporated into analysis. Due its semi-structured nature, the exact survey radius of eBird is generally not known. Detections on eBird checklists are therefore modeled based on the grid-level abundance and eBird detection probability, which is modeled based on checklist type (stationary or travelling), duration, and travel distance (travelling checklists only).
 Roughly 10% of grids with surveys from each dataset (BBS and eBird) were randomly removed from model fitting to assess out-of-sample prediction performance.
@@ -36,7 +36,7 @@ A three-dimensional array giving the number of bobwhites detected on eBird check
 
 ## mod.const
 ### nCovs
-Number of environmental covariates for estimating grid-level abundance.
+Number of environmental covariate parameters for estimating grid-level abundance (including linear and quadratic effects for some variables).
 ### n_lrr
 Number of LRRs across the eastern US in which bobwhite abundance is estimated.
 ### n_mlra
@@ -82,9 +82,9 @@ Vector giving the standardized values of percentage cover of water/wetland in ea
 ### grass
 Vector giving the standardized values of percentage cover of grassland in each grid cell in nTot. Values generated from the National Land Cover Dataset.
 ### nCells_bbs
-Number of grids with BBS surveys across years.
+Number of grids with BBS surveys in at least one year.
 ### nStops_bbs
-Matrix giving the number of BBS surveys in each grid cell in y_bbs (x-dimension) and each year (y-dimension). Values from grid cells used for assessing out-of-sample predictive power (grid_bbs_id_pred) are all set to 0, so will be skipped in model fitting.
+Matrix giving the number of BBS surveys in each grid cell in y_bbs (x-dimension) and each year (y-dimension). Values from grid cells used for assessing BBS out-of-sample predictive power (grid_bbs_id_pred) are all set to 0, so will be skipped in model fitting.
 ### bbs_prop_area
 Proportion of 5x5km grid cell surveyed by each BBS survey (400m radius circle)
 ### grid_bbs_id
@@ -94,33 +94,33 @@ A three-dimensional array giving the recorded noise level on BBS surveys. Values
 ### car_bbs
 A three-dimensional array giving the recorded number of passing cars on BBS surveys (standardized). The x-dimension corresponds to grid cells with BBS surveys (3178), the y-dimension corresponds to BBS surveys within each grid and year (up to 18), and the z-dimension corresponds to year (1=2018, 2=2019, 3=2021). Less than 18 BBS surveys were performed in some grids/years (denoted with NA).
 ### nCells_ebd
-Number of grids with eBird surveys across years.
+Number of grids with eBird checklists in at least one year.
 ### nChecklists_ebd
-Matrix giving the number of eBird checklists in each grid cell in y_ebd (x-dimension) and each year (y-dimension). Values from grid cells used for assessing out-of-sample predictive power (grid_ebd_id_pred) are all set to 0, so will be skipped in model fitting.
+Matrix giving the number of eBird checklists in each grid cell in y_ebd (x-dimension) and each year (y-dimension). Values from grid cells used for assessing eBird out-of-sample predictive power (grid_ebd_id_pred) are all set to 0, so will be skipped in model fitting.
 ### dur_ebd
-A three-dimensional array giving the recorded survey duration on eBird checklists (standardized). The x-dimension corresponds to grid cells with eBird surveys (22,885), the y-dimension corresponds to eBird checklists within each grid and year (up to 50), and the z-dimension corresponds to year (1=2018, 2=2019, 3=2021). Less than 50 eBird checklists were performed in some grids/years (denoted with NA).
+A three-dimensional array giving the recorded survey duration on eBird checklists (standardized). The x-dimension corresponds to grid cells with eBird checklists (22,885), the y-dimension corresponds to eBird checklists within each grid and year (up to 50), and the z-dimension corresponds to year (1=2018, 2=2019, 3=2021). Less than 50 eBird checklists were performed in some grids/years (denoted with NA).
 ### type_ebd
-A three-dimensional array giving the recorded survey type of eBird checklists (0 = stationary, 1 = travelling). The x-dimension corresponds to grid cells with eBird surveys (22,885), the y-dimension corresponds to eBird checklists within each grid and year (up to 50), and the z-dimension corresponds to year (1=2018, 2=2019, 3=2021). Less than 50 eBird checklists were performed in some grids/years (denoted with NA).
+A three-dimensional array giving the recorded survey type of eBird checklists (0 = stationary, 1 = travelling). The x-dimension corresponds to grid cells with eBird checklists (22,885), the y-dimension corresponds to eBird checklists within each grid and year (up to 50), and the z-dimension corresponds to year (1=2018, 2=2019, 3=2021). Less than 50 eBird checklists were performed in some grids/years (denoted with NA).
 ### eff_ebd
-A three-dimensional array giving the recorded survey effort (distance travelled) of eBird checklists. This parameter is only informative for travelling checklists. Values for travelling checklists (type_ebd = 1) are standardized while values of stationary checklists (type_ebd = 0) are set to -6.898632645. eff_ebd is multiplied by type_ebd when calculating the eBird detection probability, so will only affect the likelihood for travelling checklists. The x-dimension corresponds to grid cells with eBird surveys (22,885), the y-dimension corresponds to eBird checklists within each grid and year (up to 50), and the z-dimension corresponds to year (1=2018, 2=2019, 3=2021). Less than 50 eBird checklists were performed in some grids/years (denoted with NA).
+A three-dimensional array giving the recorded survey effort (distance travelled) of eBird checklists. This parameter is only informative for travelling checklists. Values for travelling checklists (type_ebd = 1) are standardized while values of stationary checklists (type_ebd = 0) are set to -6.898632645. eff_ebd is multiplied by type_ebd when calculating the eBird detection probability, so will only affect the likelihood for travelling checklists. The x-dimension corresponds to grid cells with eBird checklists (22,885), the y-dimension corresponds to eBird checklists within each grid and year (up to 50), and the z-dimension corresponds to year (1=2018, 2=2019, 3=2021). Less than 50 eBird checklists were performed in some grids/years (denoted with NA).
 ### grid_ebd_id
 Vector giving the grid cell ID for each grid cell with eBird checklists, i.e., which grid cell in 1:nTot correspond to each grid cell in y_ebd.
 ### lrr_grid
 Vector giving the LRR of each grid cell in nTot.
 ### Npred_bbs
-Number of grids with BBS surveys used for assessing BBS out-of-sample predictive performance.
+Number of grids with BBS surveys in at least one year used for assessing BBS out-of-sample predictive performance.
 ### grid_bbs_id_pred
-Vector representing which grid cell in 1:nCells_bbs corresponds to each grid cell 1:Npred_bbs, i.e., which grids in y_bbs are used for assessing BBS out-of-sample predictive power.
+Vector representing which grid cell in 1:nCells_bbs corresponds to each grid cell in 1:Npred_bbs, i.e., which grids in y_bbs are used for assessing BBS out-of-sample predictive power.
 ### nStops_bbs_pred
-Matrix giving the number of BBS surveys in each grid cell used for assessing BBS out-of-sample predictive power (x-dimension) and each year (y-dimension). These values represent the true number of checklists/grid/year for grids used for BBS out-of-sample prediction power, while these values were set to 0 in nStops_bbs.
+Matrix giving the number of BBS surveys in each grid cell used for assessing BBS out-of-sample predictive power (x-dimension) and each year (y-dimension). These values represent the true number of checklists/grid/year for grids used for BBS out-of-sample prediction power, while these values are set to 0 in nStops_bbs.
 ### bbs_grid_ID_pred
 Vector giving the grid cell ID for each grid cell with BBS surveys to be used for assessing BBS out-of-sample predictive performance, i.e., which grid in 1:nTot corresponds to grids in 1:Npred_bbs.
 ### Npred_ebd
-Number of grids with eBird checklists used for assessing eBird out-of-sample predictive performance.
+Number of grids with eBird checklists in at least one year used for assessing eBird out-of-sample predictive performance.
 ### grid_ebd_id_pred
-Vector representing which grid cell in 1:nChecklists_ebd corresponds to each grid cell 1:Npred_ebd, i.e., which grids in y_ebd are used for assessing eBird out-of-sample predictive power.
+Vector representing which grid cell in 1:nChecklists_ebd corresponds to each grid cell in 1:Npred_ebd, i.e., which grids in y_ebd are used for assessing eBird out-of-sample predictive power.
 ### nChecklists_ebd_pred
-Matrix giving the number of eBird checklists in each grid cell used for assessing eBird out-of-sample predictive power (x-dimension) and each year (y-dimension). These values represent the true number of checklists/grid/year for grids used for eBird out-of-sample prediction power, while these values were set to 0 in nChecklists_ebd.
+Matrix giving the number of eBird checklists in each grid cell used for assessing eBird out-of-sample predictive power (x-dimension) and each year (y-dimension). These values represent the true number of checklists/grid/year for grids used for eBird out-of-sample prediction power, while these values are set to 0 in nChecklists_ebd.
 ### ebd_grid_ID_pred
 Vector giving the grid cell ID for each grid cell with eBird checklists to be used for assessing eBird out-of-sample predictive performance, i.e., which grid in 1:nTot corresponds to grids in 1:Npred_ebd.
 ### Nmax
