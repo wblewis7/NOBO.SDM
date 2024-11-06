@@ -48,34 +48,80 @@ Number of years of study (2018, 2019, 2021).
 ### nTot
 Total number of grid cells in the eastern US with BBS and/or eBird surveys at which to estimate bobwhite abundance.
 ### mlra
-Vector giving the MLRA for each grid cell in the eastern US.
+Vector giving the MLRA for each grid cell in nTot.
 ### shrub
-Vector giving the standardized values of proportional cover of shrubs in each grid cell. Values generated from the Rangeland Analysis Platform land cover datasets.
+Vector giving the standardized values of proportional cover of shrubs in each grid cell in nTot. Values generated from the Rangeland Analysis Platform land cover datasets.
 ### bgr
-Vector giving the standardized values of proportional cover of bare ground in each grid cell. Values generated from the Rangeland Analysis Platform land cover datasets.
+Vector giving the standardized values of proportional cover of bare ground in each grid cell in nTot. Values generated from the Rangeland Analysis Platform land cover datasets.
 ### rowcrop
-Vector giving the standardized values of percentage cover of row crops in each grid cell. Values generated from the National Land Cover Dataset.
+Vector giving the standardized values of percentage cover of row crops in each grid cell in nTot. Values generated from the National Land Cover Dataset.
 ### energy
-Vector giving the standardized values of energy development intensity in each grid cell. Values generated from data in Suraci et al. 2023.
+Vector giving the standardized values of energy development intensity in each grid cell in nTot. Values generated from data in Suraci et al. 2023.
 ### transport
-Vector giving the standardized values of transportation intensity in each grid cell. Values generated from data in Suraci et al. 2023.
+Vector giving the standardized values of transportation intensity in each grid cell in nTot. Values generated from data in Suraci et al. 2023.
 ### urban
-Vector giving the standardized values of urbanization intensity in each grid cell. Values generated from data in Suraci et al. 2023.
+Vector giving the standardized values of urbanization intensity in each grid cell in nTot. Values generated from data in Suraci et al. 2023.
+### fire
+Vector giving the standardized values of fire frequency in each grid cell in nTot. Values generated from the Monitoring Trends in Burn Severity Burned Areas Boundaries Dataset.
 ### tmax
-Vector giving the standardized values of mean daily maximum temperature in each grid cell. Values generated from NASA's Daymet v4 dataset.
+Vector giving the standardized values of mean daily maximum temperature in each grid cell in nTot. Values generated from NASA's Daymet v4 dataset.
 ### prcp
-Vector giving the standardized values of mean daily precipitation in each grid cell. Values generated from NASA's Daymet v4 dataset.
+Vector giving the standardized values of mean daily precipitation in each grid cell in nTot. Values generated from NASA's Daymet v4 dataset.
 ### snowdays
-Vector giving the standardized values of mean number of days with snow depth greater than 2.5cm in each grid cell. Values generated from NASA's Daymet v4 dataset.
+Vector giving the standardized values of mean number of days with snow depth greater than 2.5cm in each grid cell in nTot. Values generated from NASA's Daymet v4 dataset.
 ### pasture
-Vector giving the standardized values of percentage cover of pasture in each grid cell. Values generated from the National Land Cover Dataset.
+Vector giving the standardized values of percentage cover of pasture in each grid cell in nTot. Values generated from the National Land Cover Dataset.
 ### evergreen
-Vector giving the standardized values of percentage cover of evergreen forest in each grid cell. Values generated from the National Land Cover Dataset.
+Vector giving the standardized values of percentage cover of evergreen forest in each grid cell in nTot. Values generated from the National Land Cover Dataset.
 ### deciduous
-Vector giving the standardized values of percentage cover of deciduous forest in each grid cell. Values generated from the National Land Cover Dataset.
+Vector giving the standardized values of percentage cover of deciduous forest in each grid cell in nTot. Values generated from the National Land Cover Dataset.
 ### mixed
-Vector giving the standardized values of percentage cover of mixed forest in each grid cell. Values generated from the National Land Cover Dataset.
+Vector giving the standardized values of percentage cover of mixed forest in each grid cell in nTot. Values generated from the National Land Cover Dataset.
 ### water
-Vector giving the standardized values of percentage cover of water/wetland in each grid cell. Values generated from the National Land Cover Dataset.
+Vector giving the standardized values of percentage cover of water/wetland in each grid cell in nTot. Values generated from the National Land Cover Dataset.
 ### grass
-Vector giving the standardized values of percentage cover of grassland in each grid cell. Values generated from the National Land Cover Dataset.
+Vector giving the standardized values of percentage cover of grassland in each grid cell in nTot. Values generated from the National Land Cover Dataset.
+### nCells_bbs
+Number of grids with BBS surveys across years.
+### nStops_bbs
+Matrix giving the number of BBS surveys in each grid cell in y_bbs (x-dimension) and each year (y-dimension). Values from grid cells used for assessing out-of-sample predictive power (grid_bbs_id_pred) are all set to 0, so will be skipped in model fitting.
+### bbs_prop_area
+Proportion of 5x5km grid cell surveyed by each BBS survey (400m radius circle)
+### grid_bbs_id
+Vector giving the grid cell ID for each grid cell with BBS surveys, i.e., which grid cell in 1:nTot correspond to each grid cell in y_bbs.
+### noise_bbs
+A three-dimensional array giving the recorded noise level on BBS surveys. Values of noise were recorded as either 0 (no background noise) or 1 (background noise). The x-dimension corresponds to grid cells with BBS surveys (3178), the y-dimension corresponds to BBS surveys within each grid and year (up to 18), and the z-dimension corresponds to year (1=2018, 2=2019, 3=2021). Less than 18 BBS surveys were performed in some grids/years (denoted with NA).
+### car_bbs
+A three-dimensional array giving the recorded number of passing cars on BBS surveys (standardized). The x-dimension corresponds to grid cells with BBS surveys (3178), the y-dimension corresponds to BBS surveys within each grid and year (up to 18), and the z-dimension corresponds to year (1=2018, 2=2019, 3=2021). Less than 18 BBS surveys were performed in some grids/years (denoted with NA).
+### nCells_ebd
+Number of grids with eBird surveys across years.
+### nChecklists_ebd
+Matrix giving the number of eBird checklists in each grid cell in y_ebd (x-dimension) and each year (y-dimension). Values from grid cells used for assessing out-of-sample predictive power (grid_ebd_id_pred) are all set to 0, so will be skipped in model fitting.
+### dur_ebd
+A three-dimensional array giving the recorded survey duration on eBird checklists (standardized). The x-dimension corresponds to grid cells with eBird surveys (22,885), the y-dimension corresponds to eBird checklists within each grid and year (up to 50), and the z-dimension corresponds to year (1=2018, 2=2019, 3=2021). Less than 50 eBird checklists were performed in some grids/years (denoted with NA).
+### type_ebd
+A three-dimensional array giving the recorded survey type of eBird checklists (0 = stationary, 1 = travelling). The x-dimension corresponds to grid cells with eBird surveys (22,885), the y-dimension corresponds to eBird checklists within each grid and year (up to 50), and the z-dimension corresponds to year (1=2018, 2=2019, 3=2021). Less than 50 eBird checklists were performed in some grids/years (denoted with NA).
+### eff_ebd
+A three-dimensional array giving the recorded survey effort (distance travelled) of eBird checklists. This parameter is only informative for travelling checklists. Values for travelling checklists (type_ebd = 1) are standardized while values of stationary checklists (type_ebd = 0) are set to -6.898632645. eff_ebd is multiplied by type_ebd when calculating the eBird detection probability, so will only affect the likelihood for travelling checklists. The x-dimension corresponds to grid cells with eBird surveys (22,885), the y-dimension corresponds to eBird checklists within each grid and year (up to 50), and the z-dimension corresponds to year (1=2018, 2=2019, 3=2021). Less than 50 eBird checklists were performed in some grids/years (denoted with NA).
+### grid_ebd_id
+Vector giving the grid cell ID for each grid cell with eBird checklists, i.e., which grid cell in 1:nTot correspond to each grid cell in y_ebd.
+### lrr_grid
+Vector giving the LRR of each grid cell in nTot.
+### Npred_bbs
+Number of grids with BBS surveys used for assessing BBS out-of-sample predictive performance.
+### grid_bbs_id_pred
+Vector representing which grid cell in 1:nCells_bbs corresponds to each grid cell 1:Npred_bbs, i.e., which grids in y_bbs are used for assessing BBS out-of-sample predictive power.
+### nStops_bbs_pred
+Matrix giving the number of BBS surveys in each grid cell used for assessing BBS out-of-sample predictive power (x-dimension) and each year (y-dimension). These values represent the true number of checklists/grid/year for grids used for BBS out-of-sample prediction power, while these values were set to 0 in nStops_bbs.
+### bbs_grid_ID_pred
+Vector giving the grid cell ID for each grid cell with BBS surveys to be used for assessing BBS out-of-sample predictive performance, i.e., which grid in 1:nTot corresponds to grids in 1:Npred_bbs.
+### Npred_ebd
+Number of grids with eBird checklists used for assessing eBird out-of-sample predictive performance.
+### grid_ebd_id_pred
+Vector representing which grid cell in 1:nChecklists_ebd corresponds to each grid cell 1:Npred_ebd, i.e., which grids in y_ebd are used for assessing eBird out-of-sample predictive power.
+### nChecklists_ebd_pred
+Matrix giving the number of eBird checklists in each grid cell used for assessing eBird out-of-sample predictive power (x-dimension) and each year (y-dimension). These values represent the true number of checklists/grid/year for grids used for eBird out-of-sample prediction power, while these values were set to 0 in nChecklists_ebd.
+### ebd_grid_ID_pred
+Vector giving the grid cell ID for each grid cell with eBird checklists to be used for assessing eBird out-of-sample predictive performance, i.e., which grid in 1:nTot corresponds to grids in 1:Npred_ebd.
+### Nmax
+Maximum possible abundance at grid cells.
