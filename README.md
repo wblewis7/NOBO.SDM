@@ -124,4 +124,4 @@ Matrix giving the number of eBird checklists in each grid cell used for assessin
 ### ebd_grid_ID_pred
 Vector giving the grid cell ID for each grid cell with eBird checklists to be used for assessing eBird out-of-sample predictive performance, i.e., which grid in 1:nTot corresponds to grids in 1:Npred_ebd.
 ### Nmax
-Maximum possible abundance at grid cells. This value was set to 8250, which is based on the maximum density (6.6 birds/ha) from Brennan et al. 2020. Northern Bobwhite (Colinus virginianus). Birds of the World.
+Maximum possible abundance at grid cells. This value is set to 8250, which is based on the maximum density (6.6 birds/ha) from Brennan et al. 2020. Northern Bobwhite (Colinus virginianus). Birds of the World.
