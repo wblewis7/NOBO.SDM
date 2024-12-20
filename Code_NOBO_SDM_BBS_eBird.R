@@ -1,3 +1,14 @@
+# R and NIMBLE code for running an integrated, spatially-varying species distribution
+#   model (SDM) integrating North American Breeding Bird Survey and eBird data from 2018,
+#   2019, and 2020 to estimate the abundance and distribution of northern bobwhite 
+#   (Colinus virginianus) in the eastern United States.
+# William B. Lewis, Sprih Harsh, Patrick Freeman, Victoria Nolan, Justin Suraci, 
+#   Bridgett E. Costanzo, and James A. Martin. Integrating multiple data sources
+#   with species distribution models to estimate the distribution and abundance 
+#   of northern bobwhite (Colinus virginianus) in the United States.
+# Author: Will Lewis, University of Georgia. wblewis7@gmail.com
+
+
 require(parallel)
 
 load("NOBO.SDM.BBS.eBird.Data.gzip")
