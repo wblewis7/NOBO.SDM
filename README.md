@@ -1,9 +1,9 @@
 # NOBO.SDM
-Data and R and NIMBLE code for a species distribution model (SDM) integrating structured North American Breeding Bird Survey (BBS) data and semi-structured eBird data to estimate northern bobwhite (Colinus virginianus)  abundance, and the environmental drivers of variation in abundance, across the eastern United States.
+Data and R and NIMBLE code for a species distribution model (SDM) integrating structured North American Breeding Bird Survey (BBS) data and semi-structured eBird data to estimate northern bobwhite (Colinus virginianus) abundance, and the environmental drivers of variation in abundance, across the eastern United States.
 ---
-Authors: William B. Lewis, Sprih Harsh, Patrick Freeman, Victoria Nolan, Justin Suraci, Bridgett Costanza, and James A. Martin
+Authors: William B. Lewis, Sprih Harsh, Patrick Freeman, Victoria Nolan, Justin Suraci, Bridgett Costanzo, and James A. Martin
 <br />
-Manuscript Title: Integrating multiple data sources with species distribution models to predict the distribution and abundance of northern bobwhites (Colinus virginianus) in the United States
+Manuscript Title: Integrating multiple data sources with species distribution models to estimate the distribution and abundance of northern bobwhite (Colinus virginianus) in the United States
 
 ---
 
@@ -124,4 +124,4 @@ Matrix giving the number of eBird checklists in each grid cell used for assessin
 ### ebd_grid_ID_pred
 Vector giving the grid cell ID for each grid cell with eBird checklists to be used for assessing eBird out-of-sample predictive performance, i.e., which grid in 1:nTot corresponds to grids in 1:Npred_ebd.
 ### Nmax
-Maximum possible abundance at grid cells.
+Maximum possible abundance at grid cells. This value was set to 8250, which is based on the maximum density (6.6 birds/ha) from Brennan et al. 2020. Northern Bobwhite (Colinus virginianus). Birds of the World.
