@@ -29,9 +29,9 @@ The data for running the northern bobwhite SDM are stored in 'NOBO.SDM.BBS.eBird
 
 ## mod.data
 ### y_bbs
-A three-dimensional array giving the number of bobwhites detected on BBS surveys. The x-dimension corresponds to grid cells with BBS surveys, the y-dimension corresponds to BBS surveys within each grid and year (up to 18), and the z-dimension corresponds to year (1=2018, 2=2019, 3=2021). Less than 18 BBS surveys were performed in some grids/years (denoted with NA). Note that this array contains both grid cells used for training the model and for out-of-sample validation, though only the training data are used for model fitting.
+A three-dimensional array giving the number of bobwhite detected on BBS surveys. The x-dimension corresponds to grid cells with BBS surveys, the y-dimension corresponds to BBS surveys within each grid and year (up to 18), and the z-dimension corresponds to year (1=2018, 2=2019, 3=2021). Less than 18 BBS surveys were performed in some grids/years (denoted with NA). Note that this array contains both grid cells used for training the model and for out-of-sample validation, though only the training data are used for model fitting.
 ### y_ebd
-A three-dimensional array giving the number of bobwhites detected on eBird checklists. The x-dimension corresponds to grid cells with eBird checklists, the y-dimension corresponds to eBird checklists within each grid and year (up to 50), and the z-dimension corresponds to year (1=2018, 2=2019, 3=2021). Less than 50 eBird checklists were recorded in some grids/years (denoted with NA). Note that this array contains both grid cells used for training the model and for out-of-sample validation, though only the training data are used for model fitting.
+A three-dimensional array giving the number of bobwhite detected on eBird checklists. The x-dimension corresponds to grid cells with eBird checklists, the y-dimension corresponds to eBird checklists within each grid and year (up to 50), and the z-dimension corresponds to year (1=2018, 2=2019, 3=2021). Less than 50 eBird checklists were recorded in some grids/years (denoted with NA). Note that this array contains both grid cells used for training the model and for out-of-sample validation, though only the training data are used for model fitting.
 
 <br />
 
