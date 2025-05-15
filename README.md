@@ -42,7 +42,7 @@ Number of environmental covariate parameters for estimating grid-level abundance
 Number of LRRs across the eastern U.S. in which bobwhite abundance is estimated.
 ### n_mlra
 Number of MLRAs across the eastern U.S. in which bobwhite abundance is estimated. MLRAs are nested within LRR.
-### lrr
+### lrr_mlra
 Vector giving the LRR for each MLRA used in analysis. 1 = D (Western Range and Irrigated Region), 2 = E (Rocky Mountain Range and Forest Region), 3 = F (Northern Great Plains Spring Wheat Region), 4 = G (Western Great Plains Range and Irrigated Region), 5 = H (Central Great Plains Winter Wheat and Range Region), 6 = I (Southwest Plateaus and Plains Range and Cotton Region), 7 = J (Southwestern Prairies Cotton and Forage Region), 8 = K (Northern Lake States Forest and Forage Region), 9 = L (Lake States Fruit, Truck Crop, and Dairy Region), 10 = M (Central Feed Grains and Livestock Region), 11 = N (East and Central Farming and Forest Region), 12 = O (Mississippi Delta Cotton and Feed Grains Region), 13 = P (South Atlantic and Gulf Slope Cash Crops, Forest, and Livestock Region), 14 = R (Northeastern Forage and Forest Region), 15 = S (Northern Atlantic Slope Diversified Farming Region), 16 = T (Atlantic and Gulf Coast Lowland Forest and Crop Region), and 17 = U (Florida Subtropical Fruit, Truck Crop, and Range Region).
 ### nYear
 Number of years of study (2018, 2019, 2021).
@@ -106,7 +106,7 @@ A three-dimensional array giving the recorded survey type of eBird checklists (0
 A three-dimensional array giving the recorded survey effort (distance travelled) of eBird checklists. This parameter is only informative for travelling checklists. Values for travelling checklists (type_ebd = 1) are standardized while values of stationary checklists (type_ebd = 0) are set to -6.898632645. eff_ebd is multiplied by type_ebd when calculating the eBird detection probability, so will only affect the likelihood for travelling checklists. The x-dimension corresponds to grid cells with eBird checklists, the y-dimension corresponds to eBird checklists within each grid and year (up to 50), and the z-dimension corresponds to year (1=2018, 2=2019, 3=2021). Less than 50 eBird checklists were performed in some grids/years (denoted with NA).
 ### grid_ebd_id
 Vector giving the grid cell ID for each grid cell with eBird checklists, i.e., which grid cell in 1:nTot correspond to each grid cell in y_ebd.
-### lrr_grid
+### lrr
 Vector giving the LRR of each grid cell in nTot.
 ### Npred_bbs
 Number of grids with BBS surveys in at least one year used for assessing BBS out-of-sample predictive performance.
