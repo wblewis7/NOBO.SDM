@@ -1,7 +1,7 @@
-# R and NIMBLE code for running an integrated, spatially-varying species distribution
+# R and NIMBLE code for running an integrated, spatially-non-stationary species distribution
 #   model (SDM) integrating North American Breeding Bird Survey and eBird data from 2018,
 #   2019, and 2020 to estimate the abundance and distribution of northern bobwhite 
-#   (Colinus virginianus) in the eastern United States.
+#   (Colinus virginianus) in the United States.
 # William B. Lewis, Sprih Harsh, Patrick Freeman, Victoria Nolan, Justin Suraci, 
 #   Bridgett E. Costanzo, and James A. Martin. Integrating multiple data sources
 #   with species distribution models to estimate the distribution and abundance 
@@ -219,23 +219,23 @@ NOBO_SDM_MCMC_code <- function(seed, mod.data, mod.const, monitors){
   mean_intercept_init <- mean(mean_intercept_lrr_init)
   
   inits.fun <- function() list(mean_cov = mean_cov_init,
-                               sd_cov = runif(mod.const$nCovs, 0, 2),
+                               sd_cov = runif(mod.const$nCovs, 0.5, 2),
                                cov = cov_init,
                                mean_intercept = mean_intercept_init,
-                               sd_intercept = runif(1, 0, 2),
+                               sd_intercept = runif(1, 0.5, 2),
                                mean_intercept_lrr = mean_intercept_lrr_init,
-                               sd_intercept_lrr = runif(mod.const$n_lrr, 0, 2),
+                               sd_intercept_lrr = runif(mod.const$n_lrr, 0.5, 2),
                                intercept = intercept_init,
                                mean_cov_year = c(0,runif(mod.const$nYear-1, -2, 2)),
-                               sd_cov_year = runif(1, 0, 2),
+                               sd_cov_year = runif(1, 0.5, 2),
                                cov_year = matrix(c(rep(0,times=mod.const$n_lrr),runif((mod.const$nYear-1) * mod.const$n_lrr, -0.1, 0.1)), nrow=mod.const$n_lrr),
-                               det_bbs_0 = runif(1, -2, 2),
-                               det_bbs_noise = runif(1, -2, 2),
-                               det_bbs_car = runif(1, -2, 2),
-                               det_ebd_0 = runif(1, -2, 2),
-                               det_ebd_dur = runif(1, -2, 2),
-                               det_ebd_type = runif(1, -2, 2),
-                               det_ebd_type_eff = runif(1, -2, 2),
+                               det_bbs_0 = runif(1, -1, 1),
+                               det_bbs_noise = runif(1, -1, 1),
+                               det_bbs_car = runif(1, -1, 1),
+                               det_ebd_0 = runif(1, -2, 0),
+                               det_ebd_dur = runif(1, -1, 1),
+                               det_ebd_type = runif(1, -1, 1),
+                               det_ebd_type_eff = runif(1, -1, 1),
                                N_overall_1 = N_overall.init,
                                N_bbs = N_bbs_init)
   
@@ -245,7 +245,7 @@ NOBO_SDM_MCMC_code <- function(seed, mod.data, mod.const, monitors){
                                 inits = inits.fun())
   
   NOBO.SDM.mcmc.out <- nimbleMCMC(model = NOBO.SDM.model,
-                                  niter = 120000, nchains = 1, nburnin = 20000, thin=25,
+                                  niter = 200000, nchains = 1, nburnin = 40000, thin=25,
                                   samplesAsCodaMCMC=TRUE, monitor=monitors, setSeed = seed)
   
   return(NOBO.SDM.mcmc.out)
