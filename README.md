@@ -1,5 +1,5 @@
 # NOBO.SDM
-Data and R and NIMBLE code for a species distribution model (SDM) integrating structured North American Breeding Bird Survey (BBS) data and semi-structured eBird data to estimate northern bobwhite (Colinus virginianus) abundance, and the environmental drivers of variation in abundance, across the eastern United States.
+Data and R and NIMBLE code for a spatially-non-stationary species distribution model (SDM) integrating structured North American Breeding Bird Survey (BBS) data and semi-structured eBird data to estimate northern bobwhite (Colinus virginianus) abundance, and the environmental drivers of variation in abundance, across the United States.
 ---
 Authors: William B. Lewis, Sprih Harsh, Patrick Freeman, Victoria Nolan, Justin Suraci, Bridgett E. Costanzo, and James A. Martin
 <br />
@@ -13,7 +13,7 @@ Manuscript Title: Integrating multiple data sources with species distribution mo
 
 # Code_NOBO_SDM_BBS_eBird.R
 
-Code for running the integrated SDM in R and NIMBLE is contained in the 'Code_NOBO_SDM_BBS_eBird' R file. Bobwhite abundance is jointly estimated from BBS and eBird data within 5x5km grid cell across the eastern United States in each of three years (2018, 2019, 2021). Abundance is modeled as a function of year effects and 16 environmental covariates (10 of which are also included as quadratic effects). To aid in prediction, grid-level abundance is constrained to be less than or equal to 8250 (corresponding to a maximum density of 6.6 birds/ha). Intercept, covariate, and year effects are allowed to vary by USDA Land Resource Region (LRR), with LRR-level effects arising from Normal distributions around global means. Intercepts are further allowed to vary based on USDA Major Land Resource Areas (MLRA) to account for finer-scale variation in abundance. MLRAs are nested within LRRs, so MLRA-specific intercepts are modeled as arising from Normal distributions around LRR-specific intercepts.
+Code for running the spatially-non-stationary integrated SDM in R and NIMBLE is contained in the 'Code_NOBO_SDM_BBS_eBird' R file. We use a generalized linear model (GLM) framework and incorporated data integration through a joint-likelihood method. Bobwhite abundance is jointly estimated from BBS and eBird data within 5-km x 5-km grid cells across the eastern United States in each of three years (2018, 2019, 2021). Abundance is modeled as a function of year effects and 16 environmental covariates (10 of which are also included as quadratic effects). To aid in prediction, grid-level abundance is constrained to be less than or equal to 8250 (corresponding to a maximum density of 6.6 birds/ha). We incorporate non-stationary responses through regional partitioning of coefficients. Specifically, we modeld intercept, covariate, and year effects as varying by USDA Land Resource Region (LRR), with LRR-level effects arising from Normal distributions around global means. Intercepts are further allowed to vary based on USDA Major Land Resource Areas (MLRA) to account for finer-scale variation in abundance. MLRAs are nested within LRRs, so MLRA-specific intercepts are modeled as arising from Normal distributions around LRR-specific intercepts.
 To reduce the effects of spatial autocorrelation, up to 18 (BBS) or 50 (eBird) surveys were included in each grid cell in each year.
 The detection radius for BBS surveys is 400m, meaning that expected abundance on BBS surveys is 2% of the abundance within the 5x5km grid cell. Detections on BBS surveys are modeled based on this survey-level abundance and BBS detection probability, which is modeled based on background noise and the number of passing cars.
 Due its semi-structured nature, the exact survey radius of eBird is generally not known. Detections on eBird checklists are therefore modeled based on the grid-level abundance and eBird detection probability, which is modeled based on checklist type (stationary or travelling), duration, and travel distance (travelling checklists only).
@@ -39,15 +39,15 @@ A three-dimensional array giving the number of bobwhite detected on eBird checkl
 ### nCovs
 Number of environmental covariate parameters for estimating grid-level abundance (including linear and quadratic effects for some variables).
 ### n_lrr
-Number of LRRs across the eastern US in which bobwhite abundance is estimated.
+Number of LRRs across the eastern U.S. in which bobwhite abundance is estimated.
 ### n_mlra
-Number of MLRAs across the eastern US in which bobwhite abundance is estimated. MLRAs are nested within LRR.
+Number of MLRAs across the eastern U.S. in which bobwhite abundance is estimated. MLRAs are nested within LRR.
 ### lrr
 Vector giving the LRR for each MLRA used in analysis. 1 = D (Western Range and Irrigated Region), 2 = E (Rocky Mountain Range and Forest Region), 3 = F (Northern Great Plains Spring Wheat Region), 4 = G (Western Great Plains Range and Irrigated Region), 5 = H (Central Great Plains Winter Wheat and Range Region), 6 = I (Southwest Plateaus and Plains Range and Cotton Region), 7 = J (Southwestern Prairies Cotton and Forage Region), 8 = K (Northern Lake States Forest and Forage Region), 9 = L (Lake States Fruit, Truck Crop, and Dairy Region), 10 = M (Central Feed Grains and Livestock Region), 11 = N (East and Central Farming and Forest Region), 12 = O (Mississippi Delta Cotton and Feed Grains Region), 13 = P (South Atlantic and Gulf Slope Cash Crops, Forest, and Livestock Region), 14 = R (Northeastern Forage and Forest Region), 15 = S (Northern Atlantic Slope Diversified Farming Region), 16 = T (Atlantic and Gulf Coast Lowland Forest and Crop Region), and 17 = U (Florida Subtropical Fruit, Truck Crop, and Range Region).
 ### nYear
 Number of years of study (2018, 2019, 2021).
 ### nTot
-Total number of grid cells in the eastern US with BBS and/or eBird surveys at which to estimate bobwhite abundance.
+Total number of grid cells in the eastern U.S. with BBS and/or eBird surveys at which to estimate bobwhite abundance.
 ### mlra
 Vector giving the MLRA for each grid cell in nTot.
 ### shrub
