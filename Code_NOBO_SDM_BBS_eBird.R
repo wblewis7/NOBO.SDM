@@ -45,7 +45,7 @@ NOBO_SDM_MCMC_code <- function(seed, mod.data, mod.const, monitors){
       prec_intercept_lrr[l] <- 1/(sd_intercept_lrr[l]^2)
     }
     for(m in 1:n_mlra){
-      intercept[m] ~ dnorm(mean_intercept_lrr[lrr[m]], prec_intercept_lrr[lrr[m]]) #MLRA intercepts come from distribution around lrr mean
+      intercept[m] ~ dnorm(mean_intercept_lrr[lrr_mlra[m]], prec_intercept_lrr[lrr_mlra[m]]) #MLRA intercepts come from distribution around lrr mean
     }
     
     ## Parameter effects on abundance
@@ -91,33 +91,33 @@ NOBO_SDM_MCMC_code <- function(seed, mod.data, mod.const, monitors){
       ## State model for abundance
       for(i in 1:nTot){
         log(lambda_overall[i, t]) <- intercept[mlra[i]] +
-          cov[lrr_grid[i], 1] * shrub[i] +
-          cov[lrr_grid[i], 2] * bgr[i] +
-          cov[lrr_grid[i], 3] * rowcrop[i] +
-          cov[lrr_grid[i], 4] * energy[i] +
-          cov[lrr_grid[i], 5] * transport[i] +
-          cov[lrr_grid[i], 6] * urban[i] +
-          cov[lrr_grid[i], 7] * fire[i] +
-          cov[lrr_grid[i], 8] * tmax[i] +
-          cov[lrr_grid[i], 9] * prcp[i] +
-          cov[lrr_grid[i], 10] * snowdays[i] +
-          cov[lrr_grid[i], 11] * pasture[i] +
-          cov[lrr_grid[i], 12] * evergreen[i] +
-          cov[lrr_grid[i], 13] * deciduous[i] +
-          cov[lrr_grid[i], 14] * mixed[i] +
-          cov[lrr_grid[i], 15] * water[i] +
-          cov[lrr_grid[i], 16] * grass[i] +
-          cov[lrr_grid[i], 17] * shrub[i] * shrub[i] +
-          cov[lrr_grid[i], 18] * bgr[i] * bgr[i] +
-          cov[lrr_grid[i], 19] * rowcrop[i] * rowcrop[i] +
-          cov[lrr_grid[i], 20] * fire[i] * fire[i] +
-          cov[lrr_grid[i], 21] * pasture[i] * pasture[i] +
-          cov[lrr_grid[i], 22] * evergreen[i] * evergreen[i] +
-          cov[lrr_grid[i], 23] * deciduous[i] * deciduous[i] +
-          cov[lrr_grid[i], 24] * mixed[i] * mixed[i] +
-          cov[lrr_grid[i], 25] * water[i] * water[i] +
-          cov[lrr_grid[i], 26] * grass[i] * grass[i] +
-          cov_year[lrr_grid[i], t]
+          cov[lrr[i], 1] * shrub[i] +
+          cov[lrr[i], 2] * bgr[i] +
+          cov[lrr[i], 3] * rowcrop[i] +
+          cov[lrr[i], 4] * energy[i] +
+          cov[lrr[i], 5] * transport[i] +
+          cov[lrr[i], 6] * urban[i] +
+          cov[lrr[i], 7] * fire[i] +
+          cov[lrr[i], 8] * tmax[i] +
+          cov[lrr[i], 9] * prcp[i] +
+          cov[lrr[i], 10] * snowdays[i] +
+          cov[lrr[i], 11] * pasture[i] +
+          cov[lrr[i], 12] * evergreen[i] +
+          cov[lrr[i], 13] * deciduous[i] +
+          cov[lrr[i], 14] * mixed[i] +
+          cov[lrr[i], 15] * water[i] +
+          cov[lrr[i], 16] * grass[i] +
+          cov[lrr[i], 17] * shrub[i] * shrub[i] +
+          cov[lrr[i], 18] * bgr[i] * bgr[i] +
+          cov[lrr[i], 19] * rowcrop[i] * rowcrop[i] +
+          cov[lrr[i], 20] * fire[i] * fire[i] +
+          cov[lrr[i], 21] * pasture[i] * pasture[i] +
+          cov[lrr[i], 22] * evergreen[i] * evergreen[i] +
+          cov[lrr[i], 23] * deciduous[i] * deciduous[i] +
+          cov[lrr[i], 24] * mixed[i] * mixed[i] +
+          cov[lrr[i], 25] * water[i] * water[i] +
+          cov[lrr[i], 26] * grass[i] * grass[i] +
+          cov_year[lrr[i], t]
         N_overall_1[i, t] ~ dpois(lambda_overall[i, t])
         N_overall[i, t] <- min(N_overall_1[i,t], Nmax)
       }
@@ -213,7 +213,7 @@ NOBO_SDM_MCMC_code <- function(seed, mod.data, mod.const, monitors){
   }
   mean_intercept_lrr_init <- rep(NA, mod.const$n_lrr)
   for(l in 1:mod.const$n_lrr){
-    mean_intercept_lrr_init[l] <- mean(intercept_init[which(mod.const$lrr == l)])
+    mean_intercept_lrr_init[l] <- mean(intercept_init[which(mod.const$lrr_mlra == l)])
   }
   mean_cov_init <- colMeans(cov_init)
   mean_intercept_init <- mean(mean_intercept_lrr_init)
